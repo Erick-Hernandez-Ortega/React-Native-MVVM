@@ -6,112 +6,92 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+function App(): React.JSX.Element {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.svgContainer}>
+        <Svg viewBox="0 0 1440 320" height={500} width={Dimensions.get('window').width} style={styles.svg}>
+          <Path
+            fill="#09f"
+            fillOpacity="1"
+            d="M0 256l48-32c48-32 144-96 240-117.3 96-21.7 192 .3 288 26.6 96 26.7 192 58.7 288 85.4 96 26.3 192 48.3 288 21.3 96-27 192-101 240-138.7l48-37.3V0H0z"
+          />
+        </Svg>
+        <Text style={styles.title}>INGRESA</Text>
+        <Text style={styles.title}>A LA APP</Text>
+        <Image source={require('./assets/img/controller.png')} style={styles.img} />
+      </View>
+
+      <View style={{ flex: 1 }} />
+
+      <TextInput
+        placeholder="Correo electrónico"
+        style={styles.textInput}
+      />
+      <TextInput
+        placeholder="Contraseña"
+        style={styles.textInput}
+      />
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.textButton}>Ingresa</Text>
+      </TouchableOpacity>
+      <Text style={styles.textRegister}>Resgistrate ahora</Text>
     </View>
   );
 }
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  title: {
+    fontSize: 28,
+    // fontWeight: 'bold',
+    marginLeft: 30,
+    color: 'white',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  img: {
+    width: 180,
+    height: 180,
+    transform: [{ rotate: '35deg' }],
+    alignSelf: 'flex-end',
   },
-  highlight: {
-    fontWeight: '700',
+  textInput: {
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    fontSize: 17,
+    marginVertical: 20,
+    marginHorizontal: 30,
+  },
+  button: {
+    backgroundColor: 'blue',
+    marginHorizontal: 30,
+    marginVertical: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
+  },
+  textButton: {
+    color: 'white',
+    fontSize: 19,
+  },
+  textRegister: {
+    fontSize: 16,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  svgContainer: {
+    backgroundColor: '#09f',
+    height: '45%',
+    paddingTop: 50,
+  },
+  svg: {
+    position: 'absolute',
+    top: 90,
   },
 });
 
