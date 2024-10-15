@@ -25,7 +25,7 @@ function App(): React.JSX.Element {
         <Image source={require('./assets/img/controller.png')} style={styles.img} />
       </View>
 
-      <View style={{ flex: 1 }} />
+      <View style={styles.divider} />
 
       <TextInput
         placeholder="Correo electrónico"
@@ -92,6 +92,9 @@ const styles = StyleSheet.create({
   svg: {
     position: 'absolute',
     top: 90,
+  },
+  divider: {
+    flex: 1,
   },
 });
 
