@@ -1,7 +1,9 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { MyColors } from './src/presentation/theme/AppTheme';
+import { DefaultButton } from './src/presentation/components/DefaultButton';
+import { DefaultTextInput } from './src/presentation/components/DefaultTextInput';
 
 function App(): React.JSX.Element {
   return (
@@ -21,20 +23,10 @@ function App(): React.JSX.Element {
 
       <View style={styles.divider} />
 
-      <TextInput
-        placeholder="Correo electrónico"
-        placeholderTextColor={MyColors.placeholder}
-        style={styles.textInput}
-      />
-      <TextInput
-        placeholder="Contraseña"
-        placeholderTextColor={MyColors.placeholder}
-        style={styles.textInput}
-      />
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.textButton}>Ingresa</Text>
-        <Image style={styles.buttonIcon} source={require('./assets/img/right-arrow.png')} />
-      </TouchableOpacity>
+      <DefaultTextInput placeholder="Correo Electronico" image={require('./assets/img/email.png')} />
+      <DefaultTextInput placeholder="Contraseña" image={require('./assets/img/password.png')} />
+
+      <DefaultButton text="Ingresar" onPress={() => {}} />
       <Text style={styles.textRegister}>Resgistrate ahora</Text>
     </View>
   );
@@ -56,28 +48,6 @@ const styles = StyleSheet.create({
     transform: [{ rotate: '35deg' }],
     alignSelf: 'flex-end',
   },
-  textInput: {
-    borderBottomColor: MyColors.placeholder,
-    color: MyColors.secondary,
-    borderBottomWidth: 1,
-    fontSize: 17,
-    marginVertical: 20,
-    marginHorizontal: 30,
-  },
-  button: {
-    backgroundColor: MyColors.primary,
-    marginHorizontal: 30,
-    marginVertical: 50,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 25,
-    flexDirection: 'row',
-  },
-  textButton: {
-    color: 'black',
-    fontSize: 19,
-  },
   textRegister: {
     fontSize: 16,
     textAlign: 'center',
@@ -95,10 +65,6 @@ const styles = StyleSheet.create({
   },
   divider: {
     flex: 1,
-  },
-  buttonIcon: {
-    height: 30,
-    width: 30,
   },
 });
 
