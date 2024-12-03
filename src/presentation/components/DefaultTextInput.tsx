@@ -11,14 +11,19 @@ import {
 interface Props {
   placeholder: string;
   image: ImageSourcePropType;
+  prop: string;
+  value: string;
+  onChangeText: (value: string, field: string) => void;
 }
 
-export const DefaultTextInput: FC<Props> = ({placeholder, image}) => {
+export const DefaultTextInput: FC<Props> = ({placeholder, image, value, onChangeText, prop}) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
       <TextInput
         placeholder={placeholder}
+        value={value}
+        onChangeText={(text: string) => onChangeText(text, prop)}
         placeholderTextColor={MyColors.placeholder}
         style={styles.textInput}
       />
