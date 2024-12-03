@@ -13,10 +13,13 @@ import {StackScreenProps} from '@react-navigation/stack';
 import LoginStyles from './Style';
 import React from 'react';
 import Svg, {Path} from 'react-native-svg';
+import LoginViewModel from './ViewModel';
 
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
+  const { email, password, onChange, handleLogin } = LoginViewModel();
+
   return (
     <View style={LoginStyles.container}>
       <View style={LoginStyles.svgContainer}>
@@ -43,14 +46,20 @@ export const LoginScreen = ({navigation}: Props) => {
 
       <DefaultTextInput
         placeholder="Correo Electronico"
+        value={email}
+        onChangeText={onChange}
+        prop="email"
         image={require('./../../../../../assets/img/email.png')}
       />
       <DefaultTextInput
         placeholder="Contraseña"
+        value={password}
+        onChangeText={onChange}
+        prop="password"
         image={require('./../../../../../assets/img/password.png')}
       />
 
-      <DefaultButton text="Ingresar" onPress={() => {}} />
+      <DefaultButton text="Ingresar" onPress={handleLogin} />
       <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
         <Text style={LoginStyles.textRegister}>Resgistrate ahora</Text>
       </TouchableOpacity>
