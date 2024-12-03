@@ -1,6 +1,13 @@
 import {DefaultButton} from '../../components/DefaultButton';
 import {DefaultTextInput} from '../../components/DefaultTextInput';
-import {Dimensions, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {MyColors} from '../../theme/AppTheme';
 import {RootStackParamList} from '../../navigation/MainStackNavigator';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -44,7 +51,9 @@ export const HomeScreen = ({navigation, route}: Props) => {
       />
 
       <DefaultButton text="Ingresar" onPress={() => {}} />
-      <Text style={styles.textRegister}>Resgistrate ahora</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+        <Text style={styles.textRegister}>Resgistrate ahora</Text>
+      </TouchableOpacity>
     </View>
   );
 };
