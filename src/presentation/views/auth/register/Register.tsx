@@ -1,4 +1,4 @@
-import { RootStackParamList } from '../../navigation/MainStackNavigator';
+import { RootStackParamList } from '../../../navigation/MainStackNavigator';
 import { StackScreenProps } from '@react-navigation/stack';
 import { SafeAreaView, Text } from 'react-native';
 import React from 'react';
