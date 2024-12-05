@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "810800276248",
+    "project_id": "rn-mvvm-32449",
+    "storage_bucket": "rn-mvvm-32449.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810800276248:android:1df8951537cde14964746d",
+        "android_client_info": {
+          "package_name": "com.cursomvvm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0mHwEJ4YFQ28neat2fnwgb-iZ9Qkj-6c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
