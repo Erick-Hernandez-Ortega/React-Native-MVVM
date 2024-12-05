@@ -7,11 +7,14 @@ import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import RegisterStyles from './Styles';
 import Svg, {Path} from 'react-native-svg';
+import RegisterViewModel from './ViewModel';
 
 interface Props
   extends StackScreenProps<RootStackParamList, 'RegisterScreen'> {}
 
-export const RegisterScreen = ({navigation, route}: Props) => {
+export const RegisterScreen = ({navigation}: Props) => {
+    const { email, password, confirmPassword, username, onChange, handleRegister } = RegisterViewModel();
+
   return (
     <View style={RegisterStyles.container}>
       <View style={RegisterStyles.svgContainer}>
@@ -46,33 +49,33 @@ export const RegisterScreen = ({navigation, route}: Props) => {
 
       <DefaultTextInput
         placeholder="Nombre de usuario"
-        value={''}
+        value={username}
         prop="username"
-        onChangeText={() => {}}
+        onChangeText={onChange}
         image={require('./../../../../../assets/img/user_image.png')}
       />
       <DefaultTextInput
         placeholder="Email"
-        value={''}
+        value={email}
         prop="email"
-        onChangeText={() => {}}
+        onChangeText={onChange}
         image={require('./../../../../../assets/img/email.png')}
       />
       <DefaultTextInput
         placeholder="Contraseña"
-        value={''}
+        value={password}
         prop="password"
-        onChangeText={() => {}}
+        onChangeText={onChange}
         image={require('./../../../../../assets/img/password.png')}
       />
       <DefaultTextInput
         placeholder="Confirmar contraseña"
-        value={''}
+        value={confirmPassword}
         prop="confirmPassword"
-        onChangeText={() => {}}
+        onChangeText={onChange}
         image={require('./../../../../../assets/img/password.png')}
       />
-      <DefaultButton text="Registrarme" onPress={() => {}} />
+      <DefaultButton text="Registrarme" onPress={handleRegister} />
     </View>
   );
 };
