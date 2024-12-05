@@ -64,6 +64,7 @@ export const RegisterScreen = ({navigation}: Props) => {
       <DefaultTextInput
         placeholder="Contraseña"
         value={password}
+        secureTextEntry
         prop="password"
         onChangeText={onChange}
         image={require('./../../../../../assets/img/password.png')}
@@ -71,6 +72,7 @@ export const RegisterScreen = ({navigation}: Props) => {
       <DefaultTextInput
         placeholder="Confirmar contraseña"
         value={confirmPassword}
+        secureTextEntry
         prop="confirmPassword"
         onChangeText={onChange}
         image={require('./../../../../../assets/img/password.png')}

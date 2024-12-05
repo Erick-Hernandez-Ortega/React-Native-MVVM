@@ -3,6 +3,7 @@ import {MyColors} from '../theme/AppTheme';
 import {
   Image,
   ImageSourcePropType,
+  KeyboardType,
   StyleSheet,
   TextInput,
   View,
@@ -13,10 +14,12 @@ interface Props {
   image: ImageSourcePropType;
   prop: string;
   value: string;
+  keyboardType?: KeyboardType;
+  secureTextEntry?: boolean;
   onChangeText: (value: string, field: string) => void;
 }
 
-export const DefaultTextInput: FC<Props> = ({placeholder, image, value, onChangeText, prop}) => {
+export const DefaultTextInput: FC<Props> = ({placeholder, image, value, onChangeText, prop, keyboardType = 'default', secureTextEntry = false}) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
@@ -26,6 +29,9 @@ export const DefaultTextInput: FC<Props> = ({placeholder, image, value, onChange
         onChangeText={(text: string) => onChangeText(text, prop)}
         placeholderTextColor={MyColors.placeholder}
         style={styles.textInput}
+        secureTextEntry={secureTextEntry}
+        keyboardType={keyboardType}
+        autoCapitalize="none"
       />
     </View>
   );

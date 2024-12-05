@@ -49,6 +49,7 @@ export const LoginScreen = ({navigation}: Props) => {
         value={email}
         onChangeText={onChange}
         prop="email"
+        keyboardType="email-address"
         image={require('./../../../../../assets/img/email.png')}
       />
       <DefaultTextInput
@@ -56,6 +57,7 @@ export const LoginScreen = ({navigation}: Props) => {
         value={password}
         onChangeText={onChange}
         prop="password"
+        secureTextEntry
         image={require('./../../../../../assets/img/password.png')}
       />
 
