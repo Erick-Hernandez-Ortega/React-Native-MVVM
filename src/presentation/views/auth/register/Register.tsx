@@ -7,13 +7,13 @@ import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import RegisterStyles from './Styles';
 import Svg, {Path} from 'react-native-svg';
-import RegisterViewModel from './ViewModel';
+import DI from '../../../../di/ioc';
 
 interface Props
   extends StackScreenProps<RootStackParamList, 'RegisterScreen'> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-    const { email, password, confirmPassword, username, onChange, handleRegister } = RegisterViewModel();
+    const { email, password, confirmPassword, username, onChange, handleRegister } = DI.resolve('RegisterViewModel');
 
   return (
     <View style={RegisterStyles.container}>

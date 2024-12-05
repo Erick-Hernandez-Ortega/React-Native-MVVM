@@ -13,12 +13,12 @@ import {StackScreenProps} from '@react-navigation/stack';
 import LoginStyles from './Style';
 import React from 'react';
 import Svg, {Path} from 'react-native-svg';
-import LoginViewModel from './ViewModel';
+import DI from '../../../../di/ioc';
 
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
-  const { email, password, onChange, handleLogin } = LoginViewModel();
+  const { email, password, onChange, handleLogin } = DI.resolve('LoginViewModel');
 
   return (
     <View style={LoginStyles.container}>
