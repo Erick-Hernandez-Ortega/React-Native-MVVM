@@ -1,14 +1,16 @@
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import {useEffect, useState} from 'react';
-import { Alert, Platform, ToastAndroid } from 'react-native';
+import Toast from 'react-native-simple-toast';
 
-const RegisterViewModel = () => {
+const RegisterViewModel = ({ RegisterUseCase }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     username: '',
   });
-  const [error, setError] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [_result, setResult] = useState<FirebaseAuthTypes.UserCredential>();
 
   const onChange = (value: string, field: string): void => {
     setValues({
@@ -17,46 +19,51 @@ const RegisterViewModel = () => {
     });
   };
 
-  const handleRegister = (): void => {
+  const handleRegister = async(): Promise<void> => {
     if (isValidForm()){
-        console.log(values);
+      const { result, error } = await RegisterUseCase.run(values);
+      setResult(result);
+      setErrorMessage(error);
     }
   };
 
   useEffect(() => {
-    if (error !== ''){
-        if (Platform.OS === 'android'){
-            return ToastAndroid.show(error, ToastAndroid.LONG);
-        }
-        Alert.alert('Error', error);
+    if (errorMessage !== '' && errorMessage !== null) {
+        Toast.show(errorMessage, Toast.LONG);
     }
-  }, [error]);
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (_result !== undefined && _result !== null) {
+      Toast.show('Registro exitoso', Toast.LONG);
+    }
+  }, [_result]);
 
   const isValidForm = (): boolean => {
     const reg: RegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
     if (values.username === '') {
-      setError('El nombre de usuario no puede estar vacio');
+      setErrorMessage('El nombre de usuario no puede estar vacio');
       return false;
     }
     if (values.email === '') {
-      setError('El email no puede estar vacio');
+      setErrorMessage('El email no puede estar vacio');
       return false;
     }
     if (values.password === '') {
-      setError('la contraseña no puede estar vacia');
+      setErrorMessage('la contraseña no puede estar vacia');
       return false;
     }
     if (values.password.length < 6) {
-      setError('la contraseña debe tener al menos 6 caracteres');
+      setErrorMessage('la contraseña debe tener al menos 6 caracteres');
       return false;
     }
     if (reg.test(values.email) === false) {
-      setError('El email no es valido');
+      setErrorMessage('El email no es valido');
       return false;
     }
     if (values.password !== values.confirmPassword) {
-      setError('Las contraseñas no coinciden');
+      setErrorMessage('Las contraseñas no coinciden');
       return false;
     }
     return true;
@@ -64,7 +71,6 @@ const RegisterViewModel = () => {
 
   return {
     ...values,
-    error,
     onChange,
     handleRegister,
   };
