@@ -1,14 +1,14 @@
 import { AuthRepository } from '../../../data/repository/AuthRepository';
-import { Resource } from '../../utils/Resource';
 
 export interface LoginUseCaseInterface {
-    execute(email: string, password: string): Promise<Resource>;
+    run(email: string, password: string): Promise<any>;
 }
 
 export const LoginUseCase = ({ authRepository }: { authRepository: AuthRepository }) => {
     return {
-        async execute(email: string, password: string) {
-            return await authRepository.login(email, password);
+        async run(email: string, password: string) {
+            const { result, error } = await authRepository.login(email, password);
+            return { result, error };
         },
     };
 };
