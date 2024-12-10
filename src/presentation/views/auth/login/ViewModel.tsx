@@ -9,6 +9,7 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
     password: '',
   });
   const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [_result, setResult] = useState<FirebaseAuthTypes.UserCredential>();
 
   useEffect(() => {
@@ -33,11 +34,11 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
 
   const handleLogin = async(): Promise<void> => {
     if (isValidForm()){
-        console.log(values);
+        setIsLoading(true);
         const { result, error } = await LoginUseCase.run(values.email.trim(), values.password.trim());
         setResult(result);
         setErrorMessage(error);
-        console.log(result, 'data');
+        setIsLoading(false);
     }
   };
 
@@ -66,6 +67,7 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
   return {
     ...values,
     onChange,
+    isLoading,
     handleLogin,
   };
 };

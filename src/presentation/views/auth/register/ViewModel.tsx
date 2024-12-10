@@ -11,6 +11,7 @@ const RegisterViewModel = ({ RegisterUseCase }) => {
   });
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [_result, setResult] = useState<FirebaseAuthTypes.UserCredential>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onChange = (value: string, field: string): void => {
     setValues({
@@ -21,9 +22,11 @@ const RegisterViewModel = ({ RegisterUseCase }) => {
 
   const handleRegister = async(): Promise<void> => {
     if (isValidForm()){
+      setIsLoading(true);
       const { result, error } = await RegisterUseCase.run(values);
       setResult(result);
       setErrorMessage(error);
+      setIsLoading(false);
     }
   };
 
@@ -72,6 +75,7 @@ const RegisterViewModel = ({ RegisterUseCase }) => {
   return {
     ...values,
     onChange,
+    isLoading,
     handleRegister,
   };
 };

@@ -1,6 +1,7 @@
 import {DefaultButton} from '../../../components/DefaultButton';
 import {DefaultTextInput} from '../../../components/DefaultTextInput';
 import {
+  ActivityIndicator,
   Dimensions,
   Image,
   Text,
@@ -18,7 +19,7 @@ import DI from '../../../../di/ioc';
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
-  const { email, password, onChange, handleLogin } = DI.resolve('LoginViewModel');
+  const { email, password, onChange, handleLogin, isLoading } = DI.resolve('LoginViewModel');
 
   return (
     <View style={LoginStyles.container}>
@@ -65,6 +66,11 @@ export const LoginScreen = ({navigation}: Props) => {
       <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
         <Text style={LoginStyles.textRegister}>Resgistrate ahora</Text>
       </TouchableOpacity>
+      {
+        isLoading && (
+          <ActivityIndicator size="large" color={MyColors.primary} style={LoginStyles.activityIndicator} />
+        )
+      }
     </View>
   );
 };

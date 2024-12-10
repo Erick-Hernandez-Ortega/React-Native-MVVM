@@ -1,6 +1,6 @@
 import {DefaultButton} from '../../../components/DefaultButton';
 import {DefaultTextInput} from '../../../components/DefaultTextInput';
-import {Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
+import {ActivityIndicator, Dimensions, Image, Text, TouchableOpacity, View} from 'react-native';
 import {MyColors} from '../../../theme/AppTheme';
 import {RootStackParamList} from '../../../navigation/MainStackNavigator';
 import {StackScreenProps} from '@react-navigation/stack';
@@ -13,7 +13,7 @@ interface Props
   extends StackScreenProps<RootStackParamList, 'RegisterScreen'> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-    const { email, password, confirmPassword, username, onChange, handleRegister } = DI.resolve('RegisterViewModel');
+    const { email, password, confirmPassword, username, onChange, handleRegister, isLoading } = DI.resolve('RegisterViewModel');
 
   return (
     <View style={RegisterStyles.container}>
@@ -78,6 +78,11 @@ export const RegisterScreen = ({navigation}: Props) => {
         image={require('./../../../../../assets/img/password.png')}
       />
       <DefaultButton text="Registrarme" onPress={handleRegister} />
+      {
+        isLoading && (
+          <ActivityIndicator size="large" color={MyColors.primary} style={RegisterStyles.activityIndicator} />
+        )
+      }
     </View>
   );
 };
