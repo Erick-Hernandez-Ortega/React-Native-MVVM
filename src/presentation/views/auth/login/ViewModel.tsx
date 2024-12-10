@@ -1,22 +1,28 @@
 import {useEffect, useState} from 'react';
-import { Alert, Platform, ToastAndroid } from 'react-native';
 import { LoginUseCaseInterface } from '../../../../domain/useCases/auth/LoginUseCase';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import Toast from 'react-native-simple-toast';
 
 const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
   });
-  const [error, setError] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [_result, setResult] = useState<FirebaseAuthTypes.UserCredential>();
 
   useEffect(() => {
-    if (error !== ''){
-        if (Platform.OS === 'android'){
-            return ToastAndroid.show(error, ToastAndroid.LONG);
-        }
-        Alert.alert('Error', error);
+    if (errorMessage !== '' && errorMessage !== null){
+        Toast.show(errorMessage, Toast.LONG);
+        setErrorMessage('');
     }
-  }, [error]);
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (_result !== undefined && _result !== null) {
+      Toast.show('Login exitoso', Toast.LONG);
+    }
+  }, [_result]);
 
   const onChange = (value: string, field: string): void => {
     setValues({
@@ -28,8 +34,10 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
   const handleLogin = async(): Promise<void> => {
     if (isValidForm()){
         console.log(values);
-        const data = await LoginUseCase.execute(values.email.trim(), values.password.trim());
-        console.log(data, 'data');
+        const { result, error } = await LoginUseCase.run(values.email.trim(), values.password.trim());
+        setResult(result);
+        setErrorMessage(error);
+        console.log(result, 'data');
     }
   };
 
@@ -37,19 +45,19 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
     const reg: RegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
     if (values.email.trim() === '') {
-      setError('El email no puede estar vacio');
+      setErrorMessage('El email no puede estar vacio');
       return false;
     }
     if (values.password.trim() === '') {
-      setError('la contraseña no puede estar vacia');
+      setErrorMessage('la contraseña no puede estar vacia');
       return false;
     }
     if (values.password.trim().length < 6) {
-      setError('la contraseña debe tener al menos 6 caracteres');
+      setErrorMessage('la contraseña debe tener al menos 6 caracteres');
       return false;
     }
     if (reg.test(values.email.trim()) === false) {
-      setError('El email no es valido');
+      setErrorMessage('El email no es valido');
       return false;
     }
     return true;
