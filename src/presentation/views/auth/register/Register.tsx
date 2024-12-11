@@ -4,16 +4,24 @@ import {ActivityIndicator, Dimensions, Image, Text, TouchableOpacity, View} from
 import {MyColors} from '../../../theme/AppTheme';
 import {RootStackParamList} from '../../../navigation/MainStackNavigator';
 import {StackScreenProps} from '@react-navigation/stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import RegisterStyles from './Styles';
 import Svg, {Path} from 'react-native-svg';
 import DI from '../../../../di/ioc';
+import Toast from 'react-native-simple-toast';
 
 interface Props
   extends StackScreenProps<RootStackParamList, 'RegisterScreen'> {}
 
 export const RegisterScreen = ({navigation}: Props) => {
-    const { email, password, confirmPassword, username, onChange, handleRegister, isLoading } = DI.resolve('RegisterViewModel');
+    const { email, password, confirmPassword, username, onChange, handleRegister, isLoading, _result } = DI.resolve('RegisterViewModel');
+
+    useEffect(() => {
+      if (_result !== undefined && _result !== null) {
+        Toast.show('Registro exitoso', Toast.LONG);
+        navigation.replace('HomeScreen');
+      }
+    }, [_result, navigation]);
 
   return (
     <View style={RegisterStyles.container}>

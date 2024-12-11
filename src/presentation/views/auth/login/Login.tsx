@@ -12,14 +12,22 @@ import {MyColors} from '../../../theme/AppTheme';
 import {RootStackParamList} from '../../../navigation/MainStackNavigator';
 import {StackScreenProps} from '@react-navigation/stack';
 import LoginStyles from './Style';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Svg, {Path} from 'react-native-svg';
 import DI from '../../../../di/ioc';
+import Toast from 'react-native-simple-toast';
 
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
-  const { email, password, onChange, handleLogin, isLoading } = DI.resolve('LoginViewModel');
+  const { email, password, onChange, handleLogin, isLoading, _result } = DI.resolve('LoginViewModel');
+
+  useEffect(() => {
+    if (_result !== undefined && _result !== null) {
+      Toast.show('Login exitoso', Toast.LONG);
+      navigation.replace('HomeScreen');
+    }
+  }, [_result, navigation]);
 
   return (
     <View style={LoginStyles.container}>

@@ -19,12 +19,6 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
     }
   }, [errorMessage]);
 
-  useEffect(() => {
-    if (_result !== undefined && _result !== null) {
-      Toast.show('Login exitoso', Toast.LONG);
-    }
-  }, [_result]);
-
   const onChange = (value: string, field: string): void => {
     setValues({
       ...values,
@@ -69,6 +63,7 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
     onChange,
     isLoading,
     handleLogin,
+    _result,
   };
 };
 

@@ -36,12 +36,6 @@ const RegisterViewModel = ({ RegisterUseCase }) => {
     }
   }, [errorMessage]);
 
-  useEffect(() => {
-    if (_result !== undefined && _result !== null) {
-      Toast.show('Registro exitoso', Toast.LONG);
-    }
-  }, [_result]);
-
   const isValidForm = (): boolean => {
     const reg: RegExp = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -77,6 +71,7 @@ const RegisterViewModel = ({ RegisterUseCase }) => {
     onChange,
     isLoading,
     handleRegister,
+    _result,
   };
 };
 
