@@ -5,12 +5,15 @@ import * as AuthDataSource from '../data/datasource/remote/AuthDataSource';
 import { AuthRepository } from '../data/repository/AuthRepository';
 import { LoginUseCase } from '../domain/useCases/auth/LoginUseCase';
 import { RegisterUseCase } from '../domain/useCases/auth/RegisterUseCase';
+import { LogoutUseCase } from '../domain/useCases/auth/LogoutUseCase';
+import HomeViewModel from '../presentation/views/home/ViewModel';
 
 const container = createContainer();
 
 container.register({
     LoginViewModel: asFunction(LoginViewModel),
     RegisterViewModel: asFunction(RegisterViewModel),
+    HomeViewModel: asFunction(HomeViewModel),
 
     authDataSource: asValue(AuthDataSource),
 
@@ -18,6 +21,7 @@ container.register({
 
     LoginUseCase: asFunction(LoginUseCase),
     RegisterUseCase: asFunction(RegisterUseCase),
+    LogoutUseCase: asFunction(LogoutUseCase),
 });
 
 export default container;
