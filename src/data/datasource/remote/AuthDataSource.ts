@@ -5,6 +5,7 @@ import { User } from '../../../domain/models/User';
 export interface AuthDataSource {
     login: (email: string, password: string) => Promise<any>;
     register: (user: User) => Promise<any>;
+    logout: () => Promise<any>;
 }
 
 export const login = async(email: string, password: string): Promise<any> => {
@@ -21,6 +22,16 @@ export const register = async(user: User): Promise<any> => {
     try {
         const data = await auth().createUserWithEmailAndPassword(user.email, user.password);
         return Promise.resolve({ error: null, result: data });
+    } catch (error: any) {
+        console.error(error);
+        return Promise.resolve({ error: error.message, result: null });
+    }
+};
+
+export const logout = async(): Promise<any> => {
+    try {
+        await auth().signOut();
+        return Promise.resolve({ error: null, result: true });
     } catch (error: any) {
         console.error(error);
         return Promise.resolve({ error: error.message, result: null });
