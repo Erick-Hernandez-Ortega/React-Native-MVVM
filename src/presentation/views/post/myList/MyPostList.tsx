@@ -3,9 +3,9 @@ import { Text, View } from 'react-native';
 import React from 'react';
 import MyPostListStyles from './Styles';
 import DI from '../../../../di/ioc';
-import { RootStackParamList } from '../../../navigation/MainStackNavigator';
+import { TabParamList } from '../../../navigation/Tabsnavigator';
 
-interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'> {}
+interface Props extends StackScreenProps<TabParamList, 'MyPostListScreen'> {}
 
 export const MyPostListScreen = ({navigation}: Props) => {
     const { } = DI.resolve('');
