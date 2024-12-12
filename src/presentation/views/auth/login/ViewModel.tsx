@@ -71,7 +71,6 @@ const LoginViewModel = ({ LoginUseCase, GetUserUseCase }) => {
     handleLogin,
     _result,
     getUser,
-    _user,
   };
 };
 

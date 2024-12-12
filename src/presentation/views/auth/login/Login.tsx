@@ -16,11 +16,12 @@ import React, { useEffect } from 'react';
 import Svg, {Path} from 'react-native-svg';
 import DI from '../../../../di/ioc';
 import Toast from 'react-native-simple-toast';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
 
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
-  const { email, password, onChange, handleLogin, isLoading, _result, getUser, _user } = DI.resolve('LoginViewModel');
+  const { email, password, onChange, handleLogin, isLoading, _result } = DI.resolve('LoginViewModel');
 
   useEffect(() => {
     if (_result !== undefined && _result !== null) {
@@ -30,14 +31,13 @@ export const LoginScreen = ({navigation}: Props) => {
   }, [_result, navigation]);
 
   useEffect(() => {
-    getUser();
-  }, [getUser]);
-
-  useEffect(() => {
-    if (_user !== undefined && _user !== null) {
-      navigation.replace('HomeScreen');
-    }
-  }, [_user, navigation]);
+    const subscriber = auth().onAuthStateChanged((user: FirebaseAuthTypes.User | null) => {
+      if (user !== null && user !== undefined) {
+        navigation.replace('HomeScreen');
+      }
+    });
+    return subscriber;
+  }, [navigation]);
 
   return (
     <View style={LoginStyles.container}>
