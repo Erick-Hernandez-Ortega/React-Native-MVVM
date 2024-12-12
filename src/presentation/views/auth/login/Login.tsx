@@ -33,7 +33,7 @@ export const LoginScreen = ({navigation}: Props) => {
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((user: FirebaseAuthTypes.User | null) => {
       if (user !== null && user !== undefined) {
-        navigation.replace('HomeScreen');
+        navigation.replace('TabsNavigator');
       }
     });
     return subscriber;
