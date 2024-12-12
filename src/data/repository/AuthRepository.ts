@@ -5,6 +5,7 @@ export interface AuthRepository {
     login: (email: string, password: string) => Promise<any>;
     register: (user: User) => Promise<any>;
     logout: () => Promise<any>;
+    getUser: () => any;
 }
 
 export const AuthRepository = ({ authDataSource }: { authDataSource: AuthDataSource }) => {
@@ -19,6 +20,10 @@ export const AuthRepository = ({ authDataSource }: { authDataSource: AuthDataSou
         },
         async logout () {
             const { result, error } = await authDataSource.logout();
+            return { result, error };
+        },
+        getUser () {
+            const { result, error } = authDataSource.getUser();
             return { result, error };
         },
     };
