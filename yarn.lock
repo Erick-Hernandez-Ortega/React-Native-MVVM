@@ -1705,6 +1705,11 @@
   dependencies:
     plist "^3.1.0"
 
+"@react-native-firebase/firestore@^21.6.1":
+  version "21.6.1"
+  resolved "https://registry.npmjs.org/@react-native-firebase/firestore/-/firestore-21.6.1.tgz"
+  integrity sha512-i3RQM11zTRCYc7/KdD0MiCm7UyyTecDXG/89lEv5hvVJMS6ltIfK+0rDheSpBzYlK4kNoK765jnvVAQxIFEqbA==
+
 "@react-native/assets-registry@0.75.4":
   version "0.75.4"
 
