@@ -1,6 +1,7 @@
 // Servicio - Informacion
 import auth from '@react-native-firebase/auth';
 import { User } from '../../../domain/models/User';
+import firestore from '@react-native-firebase/firestore';
 
 export interface AuthDataSource {
     login: (email: string, password: string) => Promise<any>;
@@ -32,6 +33,11 @@ export const login = async(email: string, password: string): Promise<any> => {
 export const register = async(user: User): Promise<any> => {
     try {
         const data = await auth().createUserWithEmailAndPassword(user.email, user.password);
+        const uid: string | undefined = getUser().result?.uid;
+        await firestore().collection('users').doc(uid).set({
+            username: user.username,
+            email: user.email,
+        });
         return Promise.resolve({ error: null, result: data });
     } catch (error: any) {
         console.error(error);
