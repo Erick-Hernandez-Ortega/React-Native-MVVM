@@ -7,6 +7,7 @@ import { LoginUseCase } from '../domain/useCases/auth/LoginUseCase';
 import { RegisterUseCase } from '../domain/useCases/auth/RegisterUseCase';
 import { LogoutUseCase } from '../domain/useCases/auth/LogoutUseCase';
 import HomeViewModel from '../presentation/views/home/ViewModel';
+import { GetUserUseCase } from '../domain/useCases/auth/GetUserUseCase';
 
 const container = createContainer();
 
@@ -22,6 +23,7 @@ container.register({
     LoginUseCase: asFunction(LoginUseCase),
     RegisterUseCase: asFunction(RegisterUseCase),
     LogoutUseCase: asFunction(LogoutUseCase),
+    GetUserUseCase: asFunction(GetUserUseCase),
 });
 
 export default container;
