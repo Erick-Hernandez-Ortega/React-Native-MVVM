@@ -20,7 +20,7 @@ import Toast from 'react-native-simple-toast';
 interface Props extends StackScreenProps<RootStackParamList, 'LoginScreen'> {}
 
 export const LoginScreen = ({navigation}: Props) => {
-  const { email, password, onChange, handleLogin, isLoading, _result } = DI.resolve('LoginViewModel');
+  const { email, password, onChange, handleLogin, isLoading, _result, getUser, _user } = DI.resolve('LoginViewModel');
 
   useEffect(() => {
     if (_result !== undefined && _result !== null) {
@@ -28,6 +28,16 @@ export const LoginScreen = ({navigation}: Props) => {
       navigation.replace('HomeScreen');
     }
   }, [_result, navigation]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
+
+  useEffect(() => {
+    if (_user !== undefined && _user !== null) {
+      navigation.replace('HomeScreen');
+    }
+  }, [_user, navigation]);
 
   return (
     <View style={LoginStyles.container}>

@@ -1,9 +1,8 @@
 import {useEffect, useState} from 'react';
-import { LoginUseCaseInterface } from '../../../../domain/useCases/auth/LoginUseCase';
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import Toast from 'react-native-simple-toast';
 
-const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface }) => {
+const LoginViewModel = ({ LoginUseCase, GetUserUseCase }) => {
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -11,6 +10,7 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [_result, setResult] = useState<FirebaseAuthTypes.UserCredential>();
+  const [_user, setUser] = useState<FirebaseAuthTypes.User>();
 
   useEffect(() => {
     if (errorMessage !== '' && errorMessage !== null){
@@ -24,6 +24,12 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
       ...values,
       [field]: value,
     });
+  };
+
+  const getUser = (): void => {
+    const { result, error } = GetUserUseCase.run();
+    setUser(result);
+    setErrorMessage(error);
   };
 
   const handleLogin = async(): Promise<void> => {
@@ -64,6 +70,8 @@ const LoginViewModel = ({ LoginUseCase }: { LoginUseCase: LoginUseCaseInterface 
     isLoading,
     handleLogin,
     _result,
+    getUser,
+    _user,
   };
 };
 
