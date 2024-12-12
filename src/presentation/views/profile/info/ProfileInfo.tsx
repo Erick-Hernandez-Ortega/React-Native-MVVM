@@ -7,7 +7,7 @@ import { RootStackParamList } from '../../../navigation/MainStackNavigator';
 
 interface Props extends StackScreenProps<RootStackParamList, 'HomeScreen'> {}
 
-export const ProfileInfo = ({navigation}: Props) => {
+export const ProfileInfoScreen = ({navigation}: Props) => {
     const { } = DI.resolve('');
     return (
         <View style={ProfileInfoStyles.container}>
